@@ -1,6 +1,7 @@
 # HU-002: Registro de Nuevo Usuario
 
 ## 📋 METADATOS
+
 - **ID**: HU-002
 - **Épica**: Autenticación y Seguridad
 - **Prioridad**: ALTA
@@ -14,25 +15,31 @@
 ## 🎯 ANÁLISIS INICIAL MULTI-PERSPECTIVA
 
 ### Perspectiva del Usuario
+
 **¿Quién?** Nuevos usuarios (estudiantes de primaria 8-12 años, profesores, padres)  
 **¿Qué?** Proceso de registro simple y guiado en <5 minutos  
 **¿Por qué?** Para crear una cuenta y comenzar a usar la plataforma educativa
 
 **Ambigüedades detectadas**:
+
 - ¿Menores de edad requieren consentimiento parental?
 - ¿El registro es autocompleto o requiere aprobación institucional?
 - ¿Qué datos mínimos son necesarios vs opcionales?
 
 ### Perspectiva Técnica
+
 **Implementable**: ✅ Sí  
 **Restricciones**:
+
 - Cumplimiento COPPA (Children's Online Privacy Protection Act) - todos los estudiantes son menores de 13 años (primaria 8-12 años)
 - Validación de email institucional para profesores
 - Prevención de bots con CAPTCHA
 - Límite de registros: 100/hora por IP
 
 ### Perspectiva de Negocio
+
 **Valor medible**:
+
 - Incremento 50% en nuevos registros completados (vs abandono)
 - Reducción 30% en tiempo de onboarding
 - Validación 100% de emails para evitar cuentas fake
@@ -48,6 +55,7 @@
 **Para** empezar a explorar la plataforma en menos de 3 minutos sin fricciones
 
 #### Criterios de Aceptación UX:
+
 1. **DADO** que soy un nuevo usuario  
    **CUANDO** accedo a "Crear cuenta"  
    **ENTONCES** veo un formulario con solo 4 campos: nombre completo, email, contraseña, rol
@@ -77,6 +85,7 @@
 **Para** prevenir cuentas fraudulentas y garantizar integridad de datos
 
 #### Criterios de Aceptación Técnicos:
+
 1. **DADO** que se envía formulario de registro  
    **CUANDO** se validan datos en backend  
    **ENTONCES** se verifica: email único, formato válido, contraseña ≥8 caracteres con complejidad
@@ -106,6 +115,7 @@
 **Para** tener 100% de usuarios verificados y reducir cuentas inactivas en 60%
 
 #### Criterios de Aceptación de Negocio:
+
 1. **DADO** que un profesor intenta registrarse  
    **CUANDO** ingresa email con dominio institucional (@escuela.edu)  
    **ENTONCES** se valida automáticamente contra directorio y asigna rol "Profesor"
@@ -127,6 +137,7 @@
    **ENTONCES** se enriquecen datos con info institucional (grado, sección, materia)
 
 **KPIs**:
+
 - Tasa de conversión registro: >70% (de inicio a verificación completa)
 - Tiempo promedio de registro: <3 minutos
 - Cuentas verificadas: 100% en primeras 48h o bloqueo temporal
@@ -136,11 +147,12 @@
 ## 🎯 VERSIÓN FINAL SINTETIZADA
 
 **Matriz de Decisión**:
+
 - Valor de negocio (30%): Versión C = 9/10
 - Factibilidad técnica (25%): Versión B = 9/10
 - Experiencia de usuario (25%): Versión A = 8/10
 - Esfuerzo de implementación (20%): Versión A = 8/10
-**Puntuación final**: 8.5/10
+  **Puntuación final**: 8.5/10
 
 ---
 
@@ -155,18 +167,20 @@
 ## ✅ CRITERIOS DE ACEPTACIÓN DETALLADOS (FINAL)
 
 ### Escenario 1: Registro Exitoso de Alumno
+
 **DADO** que soy un estudiante nuevo sin cuenta  
 **Y** accedo a la página de registro desde desktop Chrome 120+  
 **CUANDO** completo el formulario con:
+
 - Nombre completo: "María García López"
 - Email: "maria.garcia@estudiantes.edu"
 - Contraseña: "Segura2024!" (cumple requisitos)
 - Rol: "Estudiante"
 - Fecha de nacimiento: "15/03/2015" (10 años, primaria)  
-**Y** marco checkbox "Acepto términos y condiciones" con enlace expandible  
-**Y** completo CAPTCHA (si es el 6to registro desde mi IP)  
-**Y** presiono "Crear cuenta"  
-**ENTONCES**:
+  **Y** marco checkbox "Acepto términos y condiciones" con enlace expandible  
+  **Y** completo CAPTCHA (si es el 6to registro desde mi IP)  
+  **Y** presiono "Crear cuenta"  
+  **ENTONCES**:
 - Se valida email único en ≤200ms
 - Se hashea contraseña con bcrypt (salt 10 rounds)
 - Se crea registro en DB con estado "pending_verification"
@@ -175,9 +189,11 @@
 - Soy redirigido a página de "Verifica tu email" con opción "Reenviar email"
 
 ### Escenario 2: Registro de Menor con Consentimiento Parental
+
 **DADO** que soy un estudiante de 12 años  
 **CUANDO** ingreso fecha de nacimiento "10/08/2013" (12 años)  
 **ENTONCES**:
+
 - Aparece campo adicional: "Email del padre/madre/tutor"
 - Se envían 2 emails:
   1. Verificación a email del estudiante (acceso limitado hasta consentimiento)
@@ -188,10 +204,12 @@
 - Al aprobar → Se desbloquea cuenta del estudiante y ambos reciben confirmación
 
 ### Escenario 3: Registro de Profesor con Validación Institucional
+
 **DADO** que soy un profesor nuevo  
 **Y** mi escuela tiene integración con directorio institucional  
 **CUANDO** registro con email "juan.perez@profesores.edu"  
 **ENTONCES**:
+
 - Se valida dominio contra lista blanca de instituciones aprobadas
 - Se hace lookup en directorio LDAP/AD para verificar que juan.perez existe
 - Se asigna rol automáticamente: "Profesor"
@@ -203,9 +221,11 @@
   3. Tour de herramientas para profesores
 
 ### Escenario 4: Detección y Prevención de Registros Masivos (Bot Protection)
+
 **DADO** que hay actividad sospechosa desde IP 192.168.1.100  
 **CUANDO** se detectan >5 registros en 1 hora desde esa IP  
 **ENTONCES**:
+
 - A partir del 6to intento, se activa reCAPTCHA v3 obligatorio
 - Si score de CAPTCHA <0.5 → Se muestra reCAPTCHA v2 (checkbox "No soy un robot")
 - Si continúa patrón sospechoso (>10 registros en 2h) → IP bloqueada temporalmente 4h
@@ -213,9 +233,11 @@
 - Se logea evento con nivel "WARNING" en SIEM
 
 ### Escenario 5: Validación de Fortaleza de Contraseña en Tiempo Real
+
 **DADO** que estoy llenando el formulario de registro  
 **CUANDO** escribo en el campo "Contraseña"  
 **ENTONCES**:
+
 - Veo indicador visual de fortaleza (débil/media/fuerte) con colores:
   - Rojo: ≤7 caracteres o solo minúsculas/números
   - Amarillo: ≥8 caracteres + 1 mayúscula o 1 número
@@ -226,12 +248,14 @@
   - ✅/❌ Mínimo 8 caracteres
   - ✅/❌ Al menos 1 mayúscula
   - ✅/❌ Al menos 1 número
-  - ✅/❌ Al menos 1 símbolo (!@#$%^&*)
+  - ✅/❌ Al menos 1 símbolo (!@#$%^&\*)
 
 ### Escenario 6: Manejo de Email Ya Registrado
+
 **DADO** que intento registrarme con email existente "maria@edu.com"  
 **CUANDO** envío el formulario  
 **ENTONCES**:
+
 - Backend detecta email duplicado en ≤200ms
 - Por seguridad, NO se revela si el email existe (prevención de enumeración)
 - Mensaje genérico: "Si el email existe, recibirás un mensaje"
@@ -242,10 +266,12 @@
   - Detalles: IP, ubicación aproximada, timestamp
 
 ### Escenario 7: Casos Límite - Conexión Inestable
+
 **DADO** que tengo conexión 3G intermitente  
 **CUANDO** envío formulario de registro  
 **Y** la conexión se pierde durante la petición  
 **ENTONCES**:
+
 - Veo indicador de carga "Creando tu cuenta..." con spinner
 - Si timeout >10 segundos → Mensaje: "La conexión está lenta, reintentando..."
 - Se implementa retry automático (max 3 intentos con exponential backoff)
@@ -258,17 +284,21 @@
 ## 🔗 DEPENDENCIAS IDENTIFICADAS
 
 ### Dependencias Técnicas
+
 1. **Servicios de Validación**
+
    - Email validation API (AbstractAPI, ZeroBounce)
    - Password strength library (zxcvbn)
    - reCAPTCHA v3 API key de Google
 
 2. **Base de Datos**
+
    - Tabla `users` con índice UNIQUE en email
    - Tabla `email_verifications` con tokens y expiración
    - Tabla `parental_consents` para menores
 
 3. **Servicios de Email**
+
    - SendGrid/AWS SES para transaccionales
    - Templates: verificación, consentimiento parental, bienvenida
 
@@ -279,7 +309,9 @@
    - POST /api/v1/auth/parental-consent
 
 ### Dependencias de Negocio
+
 1. **Pre-requisitos**
+
    - Términos y condiciones actualizados (legal review)
    - Política de privacidad GDPR/FERPA compliant
    - Proceso de consentimiento parental definido (COPPA)
@@ -290,7 +322,9 @@
    - Proceso de onboarding post-registro (HU-003)
 
 ### Dependencias de Datos
+
 1. **Fuentes de Datos**
+
    - Directorio institucional (LDAP/AD) para validación de profesores
    - Lista blanca de dominios educativos permitidos
    - Base de contraseñas comprometidas (Have I Been Pwned API)
@@ -305,9 +339,11 @@
 ## ⚠️ RIESGOS Y MITIGACIONES
 
 ### Riesgo 1: Alta Tasa de Abandono en Proceso de Registro
+
 **Descripción**: Usuarios abandonan formulario por complejidad o campos excesivos  
 **Probabilidad**: Media | **Impacto**: Alto  
 **Mitigación**:
+
 - Formulario con solo 4-5 campos en primera etapa (progressive disclosure)
 - Autoguardado de progreso cada 30 segundos en localStorage
 - Email de recordatorio si abandona en paso 2/3
@@ -316,9 +352,11 @@
 - Meta: tasa de abandono <30%
 
 ### Riesgo 2: Cuentas Fake por Falta de Verificación
+
 **Descripción**: Usuarios crean múltiples cuentas sin verificar emails  
 **Probabilidad**: Alta | **Impacto**: Medio  
 **Mitigación**:
+
 - Email verification obligatoria en 48h o suspensión temporal
 - reCAPTCHA adaptativo según score de confianza
 - Rate limiting: max 3 registros por IP/día
@@ -327,9 +365,11 @@
 - Métricas: >95% de verificación en 48h
 
 ### Riesgo 3: Problemas de Deliverability de Emails de Verificación
+
 **Descripción**: Emails van a spam o no llegan por problemas de reputación de dominio  
 **Probabilidad**: Media | **Impacto**: Alto  
 **Mitigación**:
+
 - Configurar SPF, DKIM, DMARC correctamente
 - Usar dominio dedicado para transaccionales (no-reply@plataforma.edu)
 - Warmup de IP con gradual ramp-up de volumen
@@ -341,9 +381,11 @@
 - Meta: >98% deliverability rate
 
 ### Riesgo 4: Incumplimiento COPPA/GDPR para Menores
+
 **Descripción**: Registro de menores sin consentimiento parental apropiado  
 **Probabilidad**: Media | **Impacto**: Crítico  
 **Mitigación**:
+
 - Validación obligatoria de fecha de nacimiento
 - Consentimiento parental obligatorio para todos los estudiantes (8-12 años, todos <13 por COPPA)
 - Documentación legal guardada por 3 años
@@ -353,9 +395,11 @@
 - Seguro de responsabilidad civil
 
 ### Riesgo 5: Compromiso de Contraseñas Débiles
+
 **Descripción**: Usuarios eligen contraseñas fáciles de adivinar  
 **Probabilidad**: Alta | **Impacto**: Alto  
 **Mitigación**:
+
 - Validación contra lista de 100K contraseñas más comunes
 - Integración con Have I Been Pwned API para contraseñas comprometidas
 - Requisitos mínimos: 8 caracteres, mayúsculas, números, símbolos
@@ -371,39 +415,46 @@
 ### Breakdown de Tareas (5 Story Points = ~40 horas)
 
 1. **Backend - Endpoint de Registro** (6h)
+
    - POST /api/v1/auth/register con validaciones
    - Generación de token de verificación
    - Integración con email service
 
 2. **Backend - Validaciones de Seguridad** (5h)
+
    - Rate limiting con Redis
    - reCAPTCHA integration
    - Password strength validation
    - Email uniqueness check
 
 3. **Backend - Consentimiento Parental** (5h)
+
    - Flujo obligatorio para todos los estudiantes (primaria 8-12 años)
    - Tabla parental_consents
    - Emails a tutores
    - Workflow de aprobación
 
 4. **Frontend - Formulario de Registro** (7h)
+
    - UI responsive con validación en tiempo real
    - Password strength indicator
    - Manejo de estados: loading, error, success
    - Progressive disclosure para campos opcionales
 
 5. **Frontend - Verificación de Email** (3h)
+
    - Página "Verifica tu email"
    - Endpoint de verificación con token
    - Opción "Reenviar email"
 
 6. **Integración con Directorio Institucional** (4h)
+
    - LDAP/AD lookup para profesores
    - Mapeo de roles automático
    - Fallback si directorio no responde
 
 7. **Testing** (7h)
+
    - Unit tests (cobertura >80%)
    - Integration tests de flujo completo
    - Security testing (SQL injection, XSS)
@@ -421,6 +472,7 @@
 ## 🎯 VALIDATION CHECKLIST
 
 - [x] **Historia cumple criterios INVEST**
+
   - ✅ Independent: Funciona independiente de HU-001
   - ✅ Negotiable: Consentimiento parental puede ajustarse según jurisdicción
   - ✅ Valuable: Incremente registros 50%, reduce abandono 30%
@@ -429,20 +481,24 @@
   - ✅ Testable: 7 escenarios con métricas específicas
 
 - [x] **Criterios de aceptación son testeables**
+
   - Formato GIVEN/WHEN/THEN en todos los escenarios
   - Valores numéricos: <3 min, 70% conversión, ≤200ms validación
   - Casos límite: conexión lenta, emails duplicados, bots
 
 - [x] **Dependencias están documentadas**
+
   - Técnicas: reCAPTCHA, email service, LDAP
   - Negocio: términos legales, consentimiento parental
   - Datos: directorio institucional, lista de contraseñas comprometidas
 
 - [x] **Riesgos están identificados y mitigados**
+
   - 5 riesgos con probabilidad/impacto
   - Mitigaciones específicas y métricas de éxito
 
 - [x] **Estimación está dentro del rango esperado**
+
   - 5 SP = 40h ±20%
   - Incluye consentimiento parental (complejidad extra)
 
@@ -453,23 +509,27 @@
 ## 📈 MÉTRICAS DE ÉXITO POST-IMPLEMENTACIÓN
 
 ### Métricas Técnicas
+
 - **Tiempo de registro**: <3 minutos (p50), <5 minutos (p95)
 - **Deliverability de emails**: >98%
 - **Tasa de error en registro**: <2%
 - **Cobertura de tests**: >80%
 
 ### Métricas de Negocio
+
 - **Tasa de conversión**: >70% (de inicio formulario a email verificado)
 - **Cuentas verificadas en 48h**: >95%
 - **Abandono de formulario**: <30%
 - **Cuentas fake detectadas y bloqueadas**: >90%
 
 ### Métricas de Usuario
+
 - **NPS del proceso de registro**: >7/10
 - **Usuarios que completan perfil post-registro**: >60%
 - **Tiempo promedio hasta primer login**: <10 minutos desde registro
 
 ### Métricas de Seguridad
+
 - **Cuentas con contraseñas fuertes**: >85%
 - **Intentos de registro bloqueados por bot detection**: Tracking mensual
 - **Incidentes de seguridad por registro**: 0 en primeros 3 meses
@@ -479,18 +539,21 @@
 ## 📝 NOTAS ADICIONALES
 
 ### Consideraciones de Accesibilidad
+
 - Formulario navegable 100% por teclado
 - Errores de validación anunciados por lectores de pantalla
 - Labels descriptivos con `aria-label` donde sea necesario
 - Contraste mínimo 4.5:1
 
 ### Consideraciones Legales
+
 - **COPPA (USA)**: Consentimiento parental obligatorio para todos los estudiantes (todos <13 años, primaria 8-12)
 - **GDPR (EU)**: Consentimiento explícito para menores (todos los estudiantes <16 años)
 - **FERPA (USA)**: Protección de datos educativos
 - **LOPD (España)**: Adaptaciones según legislación local
 
 ### Integraciones Futuras
+
 - Registro con Google/Microsoft SSO (Sprint 2)
 - Verificación biométrica para menores (Fase 2)
 - Integración con sistemas antiplagio (futuro)
@@ -499,9 +562,9 @@
 
 ## 🔄 HISTORIAL DE CAMBIOS
 
-| Fecha | Versión | Cambios | Autor |
-|-------|---------|---------|-------|
-| 2025-11-06 | 1.0 | Creación inicial | BA Team |
+| Fecha      | Versión | Cambios          | Autor   |
+| ---------- | ------- | ---------------- | ------- |
+| 2025-11-06 | 1.0     | Creación inicial | BA Team |
 
 ---
 

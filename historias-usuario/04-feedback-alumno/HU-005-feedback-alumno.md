@@ -1,6 +1,7 @@
 # HU-005: Sistema de Feedback Inteligente para Alumnos
 
 ## 📋 METADATOS
+
 - **ID**: HU-005
 - **Épica**: Feedback y Retroalimentación
 - **Prioridad**: ALTA
@@ -14,26 +15,32 @@
 ## 🎯 ANÁLISIS INICIAL MULTI-PERSPECTIVA
 
 ### Perspectiva del Usuario
+
 **¿Quién?** Alumno de primaria (8-12 años) completando actividades  
 **¿Qué?** Retroalimentación inmediata, específica y constructiva sobre su desempeño en cada actividad  
 **¿Por qué?** Para entender qué hizo bien/mal, cómo mejorar y mantenerse motivado, incrementando tasa de corrección en reintentos en 65%
 
 **Ambigüedades detectadas**:
+
 - ¿El feedback es solo automático o incluye comentarios de profesores?
 - ¿Qué nivel de detalle? (Solo correcto/incorrecto vs explicación completa)
 - ¿Se da feedback durante la actividad o solo al final?
 - ¿Cómo se balancea honestidad (señalar errores) con motivación?
 
 ### Perspectiva Técnica
+
 **Implementable**: ✅ Sí con IA generativa  
 **Restricciones**:
+
 - Motor de feedback basado en patrones de error + GPT-4 para explicaciones personalizadas
 - Análisis de respuestas incorrectas para identificar misconceptions
 - Generación de hints adaptativos (sin dar respuesta directa)
 - Latencia <2 segundos para feedback automático
 
 ### Perspectiva de Negocio
+
 **Valor medible**:
+
 - Incremento 65% en tasa de éxito en reintentos
 - Reducción 40% en dependencia de profesores para aclaraciones
 - Mejora 35% en satisfacción del alumno con proceso de aprendizaje
@@ -50,6 +57,7 @@
 **Para** entender mis errores sin sentirme mal, aprender de ellos y mejorar en el siguiente intento
 
 #### Criterios de Aceptación UX:
+
 1. **DADO** que respondo correctamente  
    **CUANDO** envío la respuesta  
    **ENTONCES** veo mensaje positivo con animación ("¡Correcto! 🎉") + breve explicación del concepto aplicado
@@ -79,6 +87,7 @@
 **Para** generar explicaciones personalizadas con precisión ≥85% y latencia <2 segundos
 
 #### Criterios de Aceptación Técnicos:
+
 1. **DADO** que se implementa clasificación de errores  
    **CUANDO** alumno responde incorrectamente  
    **ENTONCES** se identifica tipo de error: conceptual, cálculo, sintaxis, distracción (accuracy 85%)
@@ -108,6 +117,7 @@
 **Para** escalar la educación personalizada sin incrementar costos de tutoría, con ROI de $150K/año
 
 #### Criterios de Aceptación de Negocio:
+
 1. **DADO** que se mide impacto  
    **CUANDO** se compara grupo con feedback inteligente vs básico (A/B test)  
    **ENTONCES** grupo inteligente logra +65% tasa de corrección en reintentos, +35% satisfacción
@@ -129,6 +139,7 @@
    **ENTONCES** >90% de explicaciones son correctas y pedagógicamente apropiadas (validado por equipo docente)
 
 **KPIs**:
+
 - Tasa de corrección en reintentos: +65%
 - Reducción de consultas a profesores: -40%
 - Satisfacción con feedback: >8/10
@@ -139,11 +150,12 @@
 ## 🎯 VERSIÓN FINAL SINTETIZADA
 
 **Matriz de Decisión**:
+
 - Valor de negocio (30%): Versión C = 9/10
 - Factibilidad técnica (25%): Versión B = 8/10
 - Experiencia de usuario (25%): Versión A = 10/10
 - Esfuerzo de implementación (20%): Versión B = 7/10
-**Puntuación final**: 8.5/10
+  **Puntuación final**: 8.5/10
 
 ---
 
@@ -158,16 +170,18 @@
 ## ✅ CRITERIOS DE ACEPTACIÓN DETALLADOS (FINAL)
 
 ### Escenario 1: Feedback Inmediato por Respuesta Correcta
+
 **DADO** que estoy resolviendo: "Resuelve: 2x + 5 = 13"  
 **Y** ingreso la respuesta correcta: "x = 4"  
 **CUANDO** presiono "Enviar"  
 **ENTONCES**:
+
 - Veo animación de check verde con confetti (300ms)
 - Mensaje: "¡Excelente! 🎉 Resolviste correctamente"
 - **Explicación breve**: "Despejaste correctamente: 2x = 13-5 → 2x = 8 → x = 4"
 - **Concepto reforzado**: Badge pequeño "Despejar incógnitas ✅"
 - Botón: [Siguiente ejercicio] (habilitado inmediatamente)
-- Se registra en DB: 
+- Se registra en DB:
   ```json
   {
     "exercise_id": 1234,
@@ -179,10 +193,12 @@
   ```
 
 ### Escenario 2: Feedback Constructivo por Respuesta Incorrecta (Primer Intento)
+
 **DADO** que estoy resolviendo: "Resuelve: 3(x + 2) = 18"  
 **Y** ingreso respuesta incorrecta: "x = 4" (error: no distribuyó el 3)  
 **CUANDO** presiono "Enviar"  
 **ENTONCES**:
+
 - **Backend analiza error**:
   ```python
   # Clasificador de error detecta
@@ -194,30 +210,34 @@
 - **UI muestra**:
   - Ícono amarillo con cara pensativa 🤔
   - Mensaje empático: "No es correcto, pero estás cerca 💪"
-  - **Pista dirigida** (sin dar respuesta): 
+  - **Pista dirigida** (sin dar respuesta):
     - "Recuerda: Cuando hay paréntesis con un número adelante, ¿qué debes hacer primero?"
     - [Hint visual para perfil Visual]: Mini-diagrama: `3(x+2) → 3·x + 3·2`
   - Botón: [Intentar de nuevo]
   - Enlace: "Ver ejemplo similar" → Video corto (1 min) de distribución
 
 ### Escenario 3: Feedback con Explicación Detallada (Segundo Fallo)
+
 **DADO** que estoy en el mismo ejercicio: "Resuelve: 3(x + 2) = 18"  
 **Y** ya fallé una vez  
 **Y** vuelvo a ingresar respuesta incorrecta: "x = 8"  
 **CUANDO** presiono "Enviar" por segunda vez  
 **ENTONCES**:
+
 - Mensaje: "Vamos paso a paso 📖"
 - **Explicación detallada**:
+
   ```
   Paso 1: Distribuye el 3 dentro del paréntesis
           3(x + 2) = 3·x + 3·2 = 3x + 6
-  
+
   Paso 2: Ahora la ecuación es: 3x + 6 = 18
-  
+
   Paso 3: Despeja: 3x = 18 - 6 → 3x = 12
-  
+
   Paso 4: Divide: x = 12/3 → x = 4
   ```
+
 - **Identificación de error específico**: "Tu error fue en [Paso 1]. Olvidaste distribuir el 3"
 - **Recomendación**: "Practica más ejercicios de distribución"
 - Botones:
@@ -226,12 +246,14 @@
   - [Ir a ejercicios de repaso de distribución]
 
 ### Escenario 4: Feedback Final con Resumen de Actividad
+
 **DADO** que completé una actividad de 10 ejercicios con resultados:
+
 - 7 correctos (primeros intentos)
 - 2 correctos (segundo intento)
 - 1 incorrecto (después de 3 intentos, vi solución)  
-**CUANDO** finalizo la actividad  
-**ENTONCES**:
+  **CUANDO** finalizo la actividad  
+  **ENTONCES**:
 - Veo pantalla de resumen con:
   - **Score visual**: 9/10 con gráfico circular
   - **Tiempo**: "Completaste en 18 minutos (promedio: 20 min) ⏱️"
@@ -247,11 +269,13 @@
     - Botón secundario: [Continuar con siguiente tema]
 
 ### Escenario 5: Feedback Adaptado al Estilo de Aprendizaje
+
 **DADO** que mi perfil es "Visual-Kinestésico"  
 **Y** fallo en ejercicio: "¿Cuál es el área de un triángulo con base 8 y altura 5?"  
 **Y** respondo: "40" (error: usó base*altura en vez de base*altura/2)  
 **CUANDO** recibo feedback  
 **ENTONCES**:
+
 - **Para mi perfil Visual-Kinestésico**:
   - **Componente Visual**: Diagrama animado del triángulo dividiéndose en 2 para formar rectángulo
   - **Componente Kinestésico**: Botón "Dibuja tu propio triángulo" → Canvas interactivo
@@ -261,36 +285,42 @@
   - Texto detallado: "La fórmula del área del triángulo es base por altura dividido dos porque..."
 
 ### Escenario 6: Tutor Virtual con IA para Dudas Adicionales
+
 **DADO** que recibí feedback: "Recuerda: 3(x+2) significa multiplicar 3 por cada término dentro"  
 **Y** sigo sin entender  
 **CUANDO** hago clic en botón "No entiendo, explícame diferente"  
 **ENTONCES**:
+
 - Se abre chat modal con tutor virtual "EduBot"
 - **Conversación asistida por GPT-4**:
+
   ```
-  EduBot: Hola María 👋 Veo que tienes duda con distribución. 
+  EduBot: Hola María 👋 Veo que tienes duda con distribución.
           ¿Qué parte no te queda clara?
-  
+
   [Alumna escribe]: "No entiendo por qué se multiplica por 2 también"
-  
-  EduBot: Ah, entiendo. Imagina que tienes 3 bolsas, y en cada bolsa 
+
+  EduBot: Ah, entiendo. Imagina que tienes 3 bolsas, y en cada bolsa
           hay (x + 2) caramelos. ¿Cuántos caramelos hay en total?
           Tienes que contar los caramelos de las 3 bolsas, ¿verdad?
           [Imagen de 3 bolsas con caramelos]
-  
+
   [Alumna]: "Ah, entonces es 3 veces x más 3 veces 2?"
-  
-  EduBot: ¡Exactamente! 🎉 3·x + 3·2 = 3x + 6. ¿Quieres intentar 
+
+  EduBot: ¡Exactamente! 🎉 3·x + 3·2 = 3x + 6. ¿Quieres intentar
           otro ejercicio para practicar?
   ```
+
 - Límite: 5 intercambios, luego sugiere contactar profesor humano
 - Toda conversación se registra para análisis de calidad
 
 ### Escenario 7: Detección de Patrón de Error Recurrente
+
 **DADO** que he fallado en 4 ejercicios diferentes  
 **Y** todos los errores son del mismo tipo: "simplificación de fracciones"  
 **CUANDO** el sistema analiza mi historial  
 **ENTONCES**:
+
 - **Backend detecta patrón**:
   ```python
   error_pattern_analysis(user_id):
@@ -311,29 +341,33 @@
 - **Notificación al profesor**: "María muestra dificultad recurrente en simplificación de fracciones"
 
 ### Escenario 8: Validación de Calidad de Feedback Generado por IA
+
 **DADO** que GPT-4 genera explicación para error en ejercicio de física  
 **CUANDO** se procesa la respuesta antes de mostrar al alumno  
 **ENTONCES**:
+
 - **Pipeline de validación**:
+
   ```python
   feedback_text = gpt4.generate_feedback(error_context)
-  
+
   # 1. Toxicity check
   toxicity_score = perspective_api.analyze(feedback_text)
   if toxicity_score > 0.1:
       feedback_text = fallback_template(error_type)
-  
+
   # 2. Coherencia pedagógica
   if not contains_pedagogical_structure(feedback_text):
       feedback_text = add_structure(feedback_text)
-  
+
   # 3. Longitud apropiada
   if len(feedback_text) > 300:  # Muy largo para alumno de 12 años
       feedback_text = summarize(feedback_text, max_words=100)
-  
+
   # 4. Audit trail
   log_generated_feedback(feedback_text, quality_score)
   ```
+
 - Si la explicación no pasa validación → Se usa template predefinido
 - Cada mes, el equipo pedagógico audita muestra de 100 feedbacks generados
 
@@ -342,17 +376,21 @@
 ## 🔗 DEPENDENCIAS IDENTIFICADAS
 
 ### Dependencias Técnicas
+
 1. **IA Generativa**
+
    - OpenAI GPT-4 API para generación de explicaciones personalizadas
    - Perspective API (Google) para detección de toxicity
    - Rate limit: 60 requests/min, cache para errores comunes
 
 2. **Clasificador de Errores**
+
    - Modelo ML (Random Forest/BERT) entrenado para clasificar tipos de error
    - Categorías: conceptual, cálculo, sintaxis, distracción, otro
    - Accuracy objetivo: >85%
 
 3. **Base de Datos**
+
    - Tabla `feedback_history` con respuestas, feedback mostrado, reacciones del usuario
    - Tabla `error_patterns` con patrones detectados
    - Cache Redis para feedback de errores comunes (hit rate objetivo: >60%)
@@ -363,7 +401,9 @@
    - POST /api/v1/tutor-chat (interacción con tutor virtual)
 
 ### Dependencias de Negocio
+
 1. **Pre-requisitos**
+
    - Banco de explicaciones curadas para errores comunes (500+ templates)
    - Rubrica de calidad pedagógica para validar feedback de IA
    - Política de uso de IA generativa con estudiantes (consentimiento padres)
@@ -374,7 +414,9 @@
    - Protocolo de escalación a profesor humano si chatbot no resuelve duda
 
 ### Dependencias de Datos
+
 1. **Fuentes de Datos**
+
    - Perfil del alumno (HU-003) para personalización de estilo
    - Historial de respuestas para detección de patrones
    - Taxonomía de tipos de error por materia
@@ -389,9 +431,11 @@
 ## ⚠️ RIESGOS Y MITIGACIONES
 
 ### Riesgo 1: Feedback de IA Pedagógicamente Incorrecto o Confuso
+
 **Descripción**: GPT-4 genera explicaciones incorrectas o confusas que pueden enseñar mal conceptos  
 **Probabilidad**: Media | **Impacto**: Crítico  
 **Mitigación**:
+
 - **Validación multi-capa**: Toxicity check, coherencia, precisión matemática
 - **Templates para casos críticos**: Usar explicaciones pre-aprobadas para matemáticas básicas
 - **Audit mensual**: Equipo pedagógico revisa muestra de 100 feedbacks
@@ -400,9 +444,11 @@
 - **Meta**: <2% de feedback reportado como incorrecto/confuso
 
 ### Riesgo 2: Costos Elevados de API de OpenAI
+
 **Descripción**: Uso masivo de GPT-4 puede generar costos >$5K/mes  
 **Probabilidad**: Alta | **Impacto**: Medio  
 **Mitigación**:
+
 - **Cache agresivo**: Guardar feedback para errores comunes (hit rate >60%)
 - **Tiering**: Usar GPT-3.5-turbo para feedback simple, GPT-4 solo para casos complejos
 - **Templates híbridos**: Generar con IA solo la parte personalizada, usar templates para estructura
@@ -411,9 +457,11 @@
 - **Meta**: Costo promedio <$0.10 por feedback único
 
 ### Riesgo 3: Feedback Demasiado Explícito que Anula Aprendizaje
+
 **Descripción**: Dar respuesta directa en lugar de guiar razonamiento  
 **Probabilidad**: Media | **Impacto**: Alto  
 **Mitigación**:
+
 - **Diseño de prompts**: Instruir a GPT-4: "Da pistas sin revelar respuesta"
 - **Escalado progresivo**: 1er intento → pista sutil, 2do → más detalle, 3ro → solución completa
 - **Validación de outputs**: Detectar si respuesta directa está en el texto (regex, NLP)
@@ -421,9 +469,11 @@
 - **Meta**: >75% de alumnos logran resolver después de pista sin necesitar solución completa
 
 ### Riesgo 4: Saturación de Chatbot, Frustración si No Entiende
+
 **Descripción**: Tutor virtual (chatbot) no logra resolver duda del alumno, genera frustración  
 **Probabilidad**: Media | **Impacto**: Medio  
 **Mitigación**:
+
 - **Límite de intercambios**: Después de 5 mensajes sin resolver → "Te conecto con un profesor"
 - **Detección de frustración**: Análisis de sentimiento en mensajes del alumno
 - **Botón de escalación**: "Prefiero hablar con un profesor" siempre visible
@@ -432,9 +482,11 @@
 - **Meta**: <15% de conversaciones terminan con escalación a profesor
 
 ### Riesgo 5: Sesgo en Feedback por Género, Etnia o Nivel Socioeconómico
+
 **Descripción**: Algoritmo genera feedback diferente (más/menos motivacional) según características del alumno  
 **Probabilidad**: Baja | **Impacto**: Crítico  
 **Mitigación**:
+
 - **Auditoría de equidad**: Analizar feedback generado por género, edad, región
 - **Prompts neutrales**: No incluir información de género/etnia en contexto de GPT-4
 - **Revisión por comité de ética**: Antes de lanzamiento
@@ -449,44 +501,53 @@
 ### Breakdown de Tareas (8 Story Points = ~64 horas)
 
 1. **Integración con OpenAI GPT-4** (8h)
+
    - Setup de API key y rate limiting
    - Diseño de prompts para feedback personalizado
    - Manejo de errores y fallbacks
 
 2. **Clasificador de Errores** (10h)
+
    - Entrenamiento de modelo con dataset de 1000+ errores etiquetados
    - Implementación de pipeline de clasificación
    - Validación de accuracy (>85%)
 
 3. **Backend - Lógica de Feedback Adaptativo** (8h)
+
    - Escalado progresivo de hints (1er, 2do, 3er intento)
    - Detección de patrones de error recurrente
    - Integración con perfil de alumno
 
 4. **Backend - Cache y Optimización** (4h)
+
    - Cache Redis para feedback de errores comunes
    - Batch processing para reducir llamadas a API
 
 5. **Backend - Validación de Calidad** (5h)
+
    - Integración con Perspective API (toxicity)
    - Validación de coherencia pedagógica
    - Audit trail y logging
 
 6. **Frontend - UI de Feedback** (8h)
+
    - Componentes de feedback (correcto/incorrecto)
    - Animaciones y visualizaciones
    - Resumen final de actividad
 
 7. **Frontend - Tutor Virtual (Chatbot)** (6h)
+
    - Interfaz de chat
    - Integración con GPT-4
    - Detección de frustración y escalación
 
 8. **Creación de Templates y Dataset** (6h)
+
    - 500+ templates de feedback curados
    - Dataset de errores comunes etiquetados
 
 9. **Testing** (6h)
+
    - Unit tests de clasificador
    - Integration tests de flujo completo
    - Validación de calidad pedagógica con profesores
@@ -502,6 +563,7 @@
 ## 🎯 VALIDATION CHECKLIST
 
 - [x] **Historia cumple criterios INVEST**
+
   - ✅ Independent: Funciona después de HU-004
   - ✅ Negotiable: Nivel de detalle de feedback ajustable
   - ✅ Valuable: +65% corrección en reintentos, -40% consultas a profesores
@@ -510,20 +572,24 @@
   - ✅ Testable: 8 escenarios con métricas
 
 - [x] **Criterios de aceptación son testeables**
+
   - GIVEN/WHEN/THEN detallados
   - Métricas: <2 seg latencia, >85% accuracy clasificación, >8/10 satisfacción
   - Casos límite: múltiples fallos, patrones recurrentes, validación de IA
 
 - [x] **Dependencias están documentadas**
+
   - Técnicas: GPT-4, Perspective API, clasificador ML
   - Negocio: Templates curados, política de uso de IA
   - Datos: Perfil alumno, historial de respuestas
 
 - [x] **Riesgos están identificados y mitigados**
+
   - 5 riesgos con mitigaciones específicas
   - Foco en calidad pedagógica, costos, equidad
 
 - [x] **Estimación está dentro del rango esperado**
+
   - 8 SP = 64h con IA generativa
 
 - [ ] **Stakeholders han validado la propuesta** (Pendiente: Equipo Pedagógico, Ética de IA)
@@ -533,24 +599,28 @@
 ## 📈 MÉTRICAS DE ÉXITO POST-IMPLEMENTACIÓN
 
 ### Métricas Técnicas
+
 - **Latencia de feedback**: <2 segundos (p95)
 - **Accuracy de clasificación de errores**: >85%
 - **Cache hit rate**: >60%
 - **Disponibilidad**: >99.5%
 
 ### Métricas de Negocio
+
 - **Tasa de corrección en reintentos**: +65% vs sin feedback inteligente
 - **Reducción de consultas a profesores**: -40%
 - **Ahorro en tiempo de profesores**: 15h/semana
 - **ROI**: $150K/año
 
 ### Métricas de Usuario
+
 - **Satisfacción con feedback**: >8/10
 - **Percepción de utilidad**: >85% dicen "El feedback me ayudó a mejorar"
 - **Uso de tutor virtual**: >60% interactúan cuando tienen duda
 - **Frustración con chatbot**: <15% escalan a profesor
 
 ### Métricas de Calidad
+
 - **Feedback pedagógicamente correcto**: >98%
 - **Feedback reportado como confuso/incorrecto**: <2%
 - **Equidad por demografía**: Diferencia <5% en tono motivacional
@@ -560,6 +630,7 @@
 ## 📝 NOTAS ADICIONALES
 
 ### Ejemplo de Prompt para GPT-4
+
 ```
 Rol: Eres un tutor empático y pedagógico para alumnos de primaria (8-12 años).
 
@@ -580,10 +651,11 @@ Genera el feedback:
 ```
 
 **Respuesta esperada de GPT-4**:
+
 ```
-¡Buen intento María! 💪 Vi que llegaste a x = 8, pero hay un paso importante al inicio. 
-Cuando tienes 3(x + 2), ¿recuerdas qué debes hacer con ese 3? Pista: Imagina 3 cajas 
-con (x + 2) dentro. Tienes que sacar todo de las 3 cajas. Intenta escribir: 3·x + 3·2 
+¡Buen intento María! 💪 Vi que llegaste a x = 8, pero hay un paso importante al inicio.
+Cuando tienes 3(x + 2), ¿recuerdas qué debes hacer con ese 3? Pista: Imagina 3 cajas
+con (x + 2) dentro. Tienes que sacar todo de las 3 cajas. Intenta escribir: 3·x + 3·2
 primero. ¿Qué te da? 🤔
 ```
 
@@ -591,9 +663,9 @@ primero. ¿Qué te da? 🤔
 
 ## 🔄 HISTORIAL DE CAMBIOS
 
-| Fecha | Versión | Cambios | Autor |
-|-------|---------|---------|-------|
-| 2025-11-06 | 1.0 | Creación inicial | BA Team |
+| Fecha      | Versión | Cambios          | Autor   |
+| ---------- | ------- | ---------------- | ------- |
+| 2025-11-06 | 1.0     | Creación inicial | BA Team |
 
 ---
 

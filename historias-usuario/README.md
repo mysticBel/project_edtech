@@ -13,14 +13,14 @@ Este repositorio contiene **8 Historias de Usuario** completas para una platafor
 
 ## 📊 MÉTRICAS GLOBALES DEL PROYECTO
 
-| Métrica | Valor | Objetivo |
-|---------|-------|----------|
-| **ROI Estimado** | 189% ($520K generados vs $180K inversión) | >150% |
-| **Reducción Deserción** | -30% | -25% |
-| **Adopción Plataforma** | 92% alumnos activos | >80% |
-| **Satisfacción Usuario** | 8.3/10 | >8.0 |
-| **Eficiencia Docente** | +40% (10h/mes ahorradas) | +30% |
-| **Tiempo Reportes** | -70% | -50% |
+| Métrica                  | Valor                                     | Objetivo |
+| ------------------------ | ----------------------------------------- | -------- |
+| **ROI Estimado**         | 189% ($520K generados vs $180K inversión) | >150%    |
+| **Reducción Deserción**  | -30%                                      | -25%     |
+| **Adopción Plataforma**  | 92% alumnos activos                       | >80%     |
+| **Satisfacción Usuario** | 8.3/10                                    | >8.0     |
+| **Eficiencia Docente**   | +40% (10h/mes ahorradas)                  | +30%     |
+| **Tiempo Reportes**      | -70%                                      | -50%     |
 
 ---
 
@@ -52,6 +52,7 @@ historias-usuario/
 ### 🔐 ÉPICA 1: Autenticación y Gestión de Usuarios (10 SP)
 
 #### HU-001: Login Básico con SSO
+
 - **Story Points**: 5 SP (~40 horas)
 - **Prioridad**: CRÍTICA
 - **Sprint**: 1
@@ -62,6 +63,7 @@ historias-usuario/
 - **Riesgos Principales**: Ataques de fuerza bruta, sesiones robadas
 
 #### HU-002: Registro de Usuario con Verificación
+
 - **Story Points**: 5 SP (~40 horas)
 - **Prioridad**: CRÍTICA
 - **Sprint**: 1
@@ -76,6 +78,7 @@ historias-usuario/
 ### 📝 ÉPICA 2: Perfilado y Diagnóstico (8 SP)
 
 #### HU-003: Encuesta Inicial de Perfilado
+
 - **Story Points**: 8 SP (~64 horas)
 - **Prioridad**: ALTA
 - **Sprint**: 2
@@ -90,6 +93,7 @@ historias-usuario/
 ### 🎯 ÉPICA 3: Aprendizaje Adaptativo (13 SP) ⭐ MÁS COMPLEJA
 
 #### HU-004: Generación de Rutas Adaptativas con IA
+
 - **Story Points**: 13 SP (~104 horas)
 - **Prioridad**: CRÍTICA
 - **Sprint**: 3-4
@@ -104,6 +108,7 @@ historias-usuario/
 ### 💬 ÉPICA 4: Feedback Inteligente (8 SP)
 
 #### HU-005: Feedback Personalizado con GPT-4
+
 - **Story Points**: 8 SP (~64 horas)
 - **Prioridad**: ALTA
 - **Sprint**: 4
@@ -118,6 +123,7 @@ historias-usuario/
 ### 👨‍🏫 ÉPICA 5: Analytics para Profesores (10 SP)
 
 #### HU-006: Dashboard con Predictive Analytics
+
 - **Story Points**: 10 SP (~80 horas)
 - **Prioridad**: ALTA
 - **Sprint**: 5
@@ -132,6 +138,7 @@ historias-usuario/
 ### 📊 ÉPICA 6: Reportes y Dashboards Institucionales (13 SP)
 
 #### HU-007: Dashboard Ejecutivo para Directores
+
 - **Story Points**: 8 SP (~64 horas)
 - **Prioridad**: MEDIA-ALTA
 - **Sprint**: 6
@@ -142,6 +149,7 @@ historias-usuario/
 - **Riesgos Principales**: Performance con 10K+ alumnos, interpretación incorrecta de métricas, ROI inflado
 
 #### HU-008: Exportación Avanzada de Datos
+
 - **Story Points**: 5 SP (~40 horas)
 - **Prioridad**: MEDIA
 - **Sprint**: 6
@@ -156,6 +164,7 @@ historias-usuario/
 ## 🛠️ STACK TECNOLÓGICO GLOBAL
 
 ### Backend
+
 - **Lenguaje**: Node.js / Python
 - **Framework**: Express / FastAPI
 - **Base de Datos**: PostgreSQL 14+ (relacional), Neo4j (knowledge graph), Redis (cache/queues)
@@ -164,18 +173,21 @@ historias-usuario/
 - **ETL/BI**: Apache Airflow, Talend, vistas materializadas
 
 ### Frontend
+
 - **Framework**: React 18+
 - **UI Library**: Material-UI / Ant Design
 - **Visualizaciones**: Chart.js, D3.js, React Flow
 - **Accesibilidad**: WCAG 2.1 AA, i18n (español/inglés)
 
 ### Infraestructura
+
 - **Cloud**: AWS (S3, SES) / Azure
 - **Monitoreo**: Prometheus, Grafana, Sentry
 - **CI/CD**: GitHub Actions, Docker
 - **Email**: SendGrid / AWS SES
 
 ### Compliance
+
 - **Privacidad**: GDPR (EU), FERPA (USA), COPPA (todos los estudiantes 8-12 años), LOPD (España)
 - **Seguridad**: OWASP Top 10, penetration testing anual
 
@@ -184,32 +196,38 @@ historias-usuario/
 ## 📅 ROADMAP DE IMPLEMENTACIÓN
 
 ### Sprint 1 (Semanas 1-2): Fundamentos de Seguridad
+
 - ✅ HU-001: Login Básico (5 SP)
 - ✅ HU-002: Registro de Usuario (5 SP)
 - **Hitos**: Usuarios pueden registrarse y acceder de forma segura
 - **Riesgos**: Configuración de OAuth2 con proveedores externos
 
 ### Sprint 2 (Semanas 3-4): Perfilado Inteligente
+
 - ✅ HU-003: Encuesta Inicial (8 SP)
 - **Hitos**: ML model entrena con datos de prueba, valida con psicopedagogos
 - **Riesgos**: Sesgo del modelo, necesidad de datos históricos
 
 ### Sprint 3-4 (Semanas 5-8): Motor Adaptativo (CRÍTICO)
+
 - ✅ HU-004: Rutas Adaptativas (13 SP)
 - **Hitos**: Grafo de conocimiento con 500+ conceptos, algoritmo LSTM funcional
 - **Riesgos**: Mayor complejidad técnica, requiere iteración y ajustes
 
 ### Sprint 4 (Semanas 9-10): Feedback Inteligente
+
 - ✅ HU-005: Feedback GPT-4 (8 SP)
 - **Hitos**: Integración con OpenAI, optimización de costos (cache 60% hits)
 - **Riesgos**: Costos operativos, moderación de contenido
 
 ### Sprint 5 (Semanas 11-12): Analytics Docentes
+
 - ✅ HU-006: Dashboard Profesores (10 SP)
 - **Hitos**: Modelo predictivo entrenado, alertas automatizadas funcionando
 - **Riesgos**: Falsos positivos en predicción de churn
 
 ### Sprint 6 (Semanas 13-15): Reportes Institucionales
+
 - ✅ HU-007: Dashboard Ejecutivo (8 SP)
 - ✅ HU-008: Exportación de Datos (5 SP)
 - **Hitos**: BI dashboards operativos, reportes automáticos programados
@@ -244,10 +262,12 @@ graph TD
 ### 🔴 Riesgos Críticos
 
 1. **Dependencia de Datos Históricos para ML (HU-003, HU-004, HU-006)**
+
    - **Impacto**: Sin datos suficientes (10K+ alumnos), modelos no funcionan
    - **Mitigación**: Usar datos sintéticos inicialmente, cold-start con reglas heurísticas, partnership con instituciones para data sharing
 
 2. **Costos Operativos de GPT-4 (HU-005)**
+
    - **Impacto**: $2K+/mes puede ser insostenible
    - **Mitigación**: Cache agresivo (60% hits), rate limiting (5 mensajes/alumno/día), fallback a templates pre-escritos
 
@@ -258,6 +278,7 @@ graph TD
 ### 🟡 Riesgos Moderados
 
 4. **Performance con Escala (HU-004, HU-007)**
+
    - **Impacto**: Latencia >10 seg con 100K+ alumnos
    - **Mitigación**: Vistas materializadas, particionamiento, cache Redis, CDN
 
@@ -270,6 +291,7 @@ graph TD
 ## 📏 CRITERIOS DE ÉXITO GLOBALES
 
 ### KPIs de Negocio
+
 - ✅ **ROI**: >150% (actual: 189%)
 - ✅ **Reducción deserción**: >25% (actual: 30%)
 - ✅ **Adopción plataforma**: >80% (actual: 92%)
@@ -277,6 +299,7 @@ graph TD
 - ✅ **Eficiencia docente**: +30% (actual: +40%)
 
 ### KPIs Técnicos
+
 - ✅ **Uptime**: >99.5%
 - ✅ **Latencia p95**: <2 seg
 - ✅ **Accuracy ML (perfilado)**: >85%
@@ -284,6 +307,7 @@ graph TD
 - ✅ **Cobertura de tests**: >80%
 
 ### KPIs de Calidad
+
 - ✅ **Bugs críticos en producción**: <2 por mes
 - ✅ **Incidencias de seguridad**: 0
 - ✅ **Violaciones de privacidad**: 0
@@ -296,23 +320,27 @@ graph TD
 Cada Historia de Usuario sigue el **Proceso de Análisis Paso a Paso con Validación Cruzada**:
 
 ### Fase 1: Análisis Multi-Perspectiva
+
 1. **Perspectiva del Usuario**: ¿Quién? ¿Qué? ¿Por qué? Ambigüedades detectadas
 2. **Perspectiva Técnica**: Factibilidad, restricciones, esfuerzo estimado
 3. **Perspectiva de Negocio**: Valor medible, ROI, KPIs
 
 ### Fase 2: Generación de Alternativas
+
 - **Versión A**: Enfoque centrado en usuario (UX)
 - **Versión B**: Enfoque técnico eficiente
 - **Versión C**: Enfoque de valor de negocio
 - **Matriz de Decisión**: Evaluación con pesos y selección de mejor versión
 
 ### Fase 3: Síntesis y Refinamiento
+
 - Historia de usuario final detallada
 - 6-8 escenarios GIVEN/WHEN/THEN con valores específicos
 - Dependencias técnicas/negocio/datos documentadas
 - 5 riesgos principales con mitigaciones
 
 ### Fase 4: Validación
+
 - ✅ Criterios INVEST (Independent, Negotiable, Valuable, Estimable, Small, Testable)
 - ✅ Criterios SMART para objetivos
 - ✅ Checklist de completitud
@@ -328,6 +356,7 @@ Jira Board: https://edtech.atlassian.net/
 Confluence: https://edtech.atlassian.net/wiki/
 
 **Stakeholders Principales**:
+
 - **Product Owner**: [TBD]
 - **Directores Académicos**: Dr. Roberto Sánchez (Director), María López (Coordinadora)
 - **Tech Lead**: [TBD]
@@ -348,16 +377,16 @@ Confluence: https://edtech.atlassian.net/wiki/
 
 ## 📊 DASHBOARD DE ESTADO DEL PROYECTO
 
-| HU | Título | SP | Estado | Sprint | Desarrollo | QA | Producción |
-|----|--------|----|----|--------|------------|----|----|
-| HU-001 | Login Básico | 5 | ✅ Aprobado | 1 | ⏳ Pendiente | ⏳ | ⏳ |
-| HU-002 | Registro Usuario | 5 | ✅ Aprobado | 1 | ⏳ Pendiente | ⏳ | ⏳ |
-| HU-003 | Encuesta Perfil | 8 | ✅ Aprobado | 2 | ⏳ Pendiente | ⏳ | ⏳ |
-| HU-004 | Rutas Adaptativas | 13 | ✅ Aprobado | 3-4 | ⏳ Pendiente | ⏳ | ⏳ |
-| HU-005 | Feedback GPT-4 | 8 | ✅ Aprobado | 4 | ⏳ Pendiente | ⏳ | ⏳ |
-| HU-006 | Dashboard Profesores | 10 | ✅ Aprobado | 5 | ⏳ Pendiente | ⏳ | ⏳ |
-| HU-007 | Dashboard Ejecutivo | 8 | 🔍 Revisión | 6 | ⏳ Pendiente | ⏳ | ⏳ |
-| HU-008 | Exportación Datos | 5 | 🔍 Revisión | 6 | ⏳ Pendiente | ⏳ | ⏳ |
+| HU     | Título               | SP  | Estado      | Sprint | Desarrollo   | QA  | Producción |
+| ------ | -------------------- | --- | ----------- | ------ | ------------ | --- | ---------- |
+| HU-001 | Login Básico         | 5   | ✅ Aprobado | 1      | ⏳ Pendiente | ⏳  | ⏳         |
+| HU-002 | Registro Usuario     | 5   | ✅ Aprobado | 1      | ⏳ Pendiente | ⏳  | ⏳         |
+| HU-003 | Encuesta Perfil      | 8   | ✅ Aprobado | 2      | ⏳ Pendiente | ⏳  | ⏳         |
+| HU-004 | Rutas Adaptativas    | 13  | ✅ Aprobado | 3-4    | ⏳ Pendiente | ⏳  | ⏳         |
+| HU-005 | Feedback GPT-4       | 8   | ✅ Aprobado | 4      | ⏳ Pendiente | ⏳  | ⏳         |
+| HU-006 | Dashboard Profesores | 10  | ✅ Aprobado | 5      | ⏳ Pendiente | ⏳  | ⏳         |
+| HU-007 | Dashboard Ejecutivo  | 8   | 🔍 Revisión | 6      | ⏳ Pendiente | ⏳  | ⏳         |
+| HU-008 | Exportación Datos    | 5   | 🔍 Revisión | 6      | ⏳ Pendiente | ⏳  | ⏳         |
 
 **Última actualización**: 2025-11-06  
 **Estado general**: 📝 Análisis completo, pendiente aprobación ejecutiva y inicio de desarrollo
@@ -367,18 +396,21 @@ Confluence: https://edtech.atlassian.net/wiki/
 ## 🏆 VALOR TOTAL GENERADO
 
 ### Impacto en Estudiantes
+
 - **500 alumnos de primaria (8-12 años)** beneficiados directamente
 - **+40% velocidad** de aprendizaje
 - **-30% deserción** (150 alumnos retenidos vs año anterior)
 - **8.3/10 satisfacción** promedio
 
 ### Impacto en Profesores
+
 - **40 profesores** utilizan la plataforma
 - **10h/mes ahorradas** por profesor (400h/mes total)
 - **+95% adopción** del dashboard
 - **Detección temprana** de 15% alumnos en riesgo
 
 ### Impacto Institucional
+
 - **$520K valor generado** anual
 - **$180K inversión** anual
 - **189% ROI**
