@@ -1,4 +1,67 @@
-# Getting Started with Create React App
+# 🎓 Plataforma Educativa Adaptativa - MVP
+
+## 📋 Objetivo del Proyecto
+
+Este proyecto es un **MVP (Minimum Viable Product)** de una plataforma educativa con aprendizaje adaptativo diseñada para estudiantes de educación básica. La aplicación permite a los estudiantes registrarse, completar una encuesta inicial de perfil, y acceder a rutas de aprendizaje personalizadas con feedback en tiempo real.
+
+### 🎯 Funcionalidades Principales
+
+1. **Sistema de Autenticación** (HU-001, HU-002)
+
+   - Login con email y contraseña
+   - Registro de nuevos usuarios
+   - Persistencia local de sesiones
+
+2. **Encuesta Inicial de Perfil** (HU-003)
+
+   - Grado escolar
+   - Materias favoritas
+   - Estilo de aprendizaje
+   - Hobbies e intereses
+
+3. **Rutas de Aprendizaje Adaptativas** (HU-004)
+   - 3 materias: Matemáticas, Lengua y Ciencias
+   - Sistema de temas progresivos con bloqueo/desbloqueo
+   - Actividades interactivas con preguntas de opción múltiple
+   - Feedback adaptativo basado en desempeño
+   - Seguimiento de progreso por usuario
+
+### 🏗️ Arquitectura del Proyecto
+
+```
+src/
+├── pages/              # Componentes de vistas principales
+│   ├── Login.js       # Pantalla de inicio de sesión
+│   ├── Register.js    # Pantalla de registro
+│   ├── Survey.js      # Encuesta inicial (4 pasos)
+│   ├── Home.js        # Dashboard principal
+│   ├── LearningMap.js # Mapa de rutas de aprendizaje
+│   └── Activity.js    # Actividades/Ejercicios
+├── services/          # Capa de lógica de negocio
+│   ├── authService.js     # Gestión de autenticación
+│   └── progressService.js # Gestión de progreso
+└── data/              # Datos estáticos
+    ├── users.json           # Usuarios de prueba
+    └── learningPaths.json   # Contenido educativo
+```
+
+### 🔑 Características Técnicas
+
+- **Frontend**: React 18.x con hooks
+- **Persistencia**: localStorage (simulación de base de datos)
+- **Arquitectura**: Patrón de capas (Pages → Services → Data)
+- **Sin backend**: Aplicación completamente client-side
+- **Aprendizaje Adaptativo**: Simulado con lógica de racha de respuestas
+
+### 👥 Usuarios de Prueba
+
+```
+Admin:     admin@test.com / admin123
+Profesor:  profesor@test.com / profe123
+Alumno:    alumno@test.com / alumno123
+```
+
+## 🚀 Cómo Ejecutar el Proyecto
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
