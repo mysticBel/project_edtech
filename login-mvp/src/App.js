@@ -8,7 +8,7 @@ import LearningMap from "./components/LearningMap";
 import Activity from "./components/Activity";
 
 function App() {
-  const [view, setView] = useState('login'); // 'login', 'register', 'survey', 'home', 'learning', 'activity'
+  const [view, setView] = useState("login"); // 'login', 'register', 'survey', 'home', 'learning', 'activity'
   const [user, setUser] = useState(null);
   const [currentSubject, setCurrentSubject] = useState(null);
   const [currentTopic, setCurrentTopic] = useState(null);
@@ -17,54 +17,54 @@ function App() {
     setUser(userData);
     // Si el usuario no ha completado la encuesta, mostrarla
     if (!userData.completedSurvey) {
-      setView('survey');
+      setView("survey");
     } else {
-      setView('home');
+      setView("home");
     }
   };
 
   const handleRegister = (userData) => {
     setUser(userData);
     // Después del registro, siempre mostrar la encuesta
-    setView('survey');
+    setView("survey");
   };
 
   const handleSurveyComplete = (updatedUser) => {
     setUser(updatedUser);
-    setView('home');
+    setView("home");
   };
 
   const handleLogout = () => {
     setUser(null);
-    setView('login');
+    setView("login");
   };
 
   const handleGoToRegister = () => {
-    setView('register');
+    setView("register");
   };
 
   const handleBackToLogin = () => {
-    setView('login');
+    setView("login");
   };
 
   const handleStartLearning = () => {
-    setView('learning');
+    setView("learning");
   };
 
   const handleBackToHome = () => {
-    setView('home');
+    setView("home");
   };
 
   const handleStartActivity = (subject, topic) => {
     setCurrentSubject(subject);
     setCurrentTopic(topic);
-    setView('activity');
+    setView("activity");
   };
 
   const handleBackToLearning = () => {
     setCurrentSubject(null);
     setCurrentTopic(null);
-    setView('learning');
+    setView("learning");
   };
 
   const handleActivityComplete = (stats) => {
@@ -74,37 +74,48 @@ function App() {
 
     alert(
       `¡Actividad completada!\n\n` +
-      `✅ Correctas: ${stats.correct}\n` +
-      `❌ Incorrectas: ${stats.incorrect}\n` +
-      `📊 Puntuación: ${score}%\n\n` +
-      `${completed ? '🎉 ¡Has dominado este tema!' : '💪 Sigue practicando para mejorar'}`
+        `✅ Correctas: ${stats.correct}\n` +
+        `❌ Incorrectas: ${stats.incorrect}\n` +
+        `📊 Puntuación: ${score}%\n\n` +
+        `${
+          completed
+            ? "🎉 ¡Has dominado este tema!"
+            : "💪 Sigue practicando para mejorar"
+        }`
     );
-    
-    setView('learning');
+
+    setView("learning");
   };
 
   return (
     <div className="App">
-      {view === 'login' && (
+      {view === "login" && (
         <Login onLogin={handleLogin} onGoToRegister={handleGoToRegister} />
       )}
-      {view === 'register' && (
-        <Register onRegister={handleRegister} onBackToLogin={handleBackToLogin} />
+      {view === "register" && (
+        <Register
+          onRegister={handleRegister}
+          onBackToLogin={handleBackToLogin}
+        />
       )}
-      {view === 'survey' && user && (
+      {view === "survey" && user && (
         <Survey user={user} onSurveyComplete={handleSurveyComplete} />
       )}
-      {view === 'home' && user && (
-        <Home user={user} onLogout={handleLogout} onStartLearning={handleStartLearning} />
+      {view === "home" && user && (
+        <Home
+          user={user}
+          onLogout={handleLogout}
+          onStartLearning={handleStartLearning}
+        />
       )}
-      {view === 'learning' && user && (
-        <LearningMap 
-          user={user} 
+      {view === "learning" && user && (
+        <LearningMap
+          user={user}
           onStartActivity={handleStartActivity}
           onBack={handleBackToHome}
         />
       )}
-      {view === 'activity' && user && currentSubject && currentTopic && (
+      {view === "activity" && user && currentSubject && currentTopic && (
         <Activity
           user={user}
           subject={currentSubject}

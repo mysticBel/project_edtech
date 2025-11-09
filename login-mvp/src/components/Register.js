@@ -1,48 +1,53 @@
-import React, { useState } from 'react';
-import './Register.css';
+import React, { useState } from "react";
+import "./Register.css";
 
 function Register({ onRegister, onBackToLogin }) {
   const [formData, setFormData] = useState({
-    nombre: '',
-    email: '',
-    password: '',
-    confirmPassword: ''
+    nombre: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
   });
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setError('');
+    setError("");
 
     // Validaciones básicas
-    if (!formData.nombre || !formData.email || !formData.password || !formData.confirmPassword) {
-      setError('Todos los campos son obligatorios');
+    if (
+      !formData.nombre ||
+      !formData.email ||
+      !formData.password ||
+      !formData.confirmPassword
+    ) {
+      setError("Todos los campos son obligatorios");
       return;
     }
 
     if (formData.password.length < 6) {
-      setError('La contraseña debe tener al menos 6 caracteres');
+      setError("La contraseña debe tener al menos 6 caracteres");
       return;
     }
 
     if (formData.password !== formData.confirmPassword) {
-      setError('Las contraseñas no coinciden');
+      setError("Las contraseñas no coinciden");
       return;
     }
 
     // Obtener usuarios existentes de localStorage
-    const existingUsers = JSON.parse(localStorage.getItem('users') || '[]');
-    
+    const existingUsers = JSON.parse(localStorage.getItem("users") || "[]");
+
     // Verificar si el email ya existe
-    if (existingUsers.find(u => u.email === formData.email)) {
-      setError('Este email ya está registrado');
+    if (existingUsers.find((u) => u.email === formData.email)) {
+      setError("Este email ya está registrado");
       return;
     }
 
@@ -52,12 +57,12 @@ function Register({ onRegister, onBackToLogin }) {
       nombre: formData.nombre,
       email: formData.email,
       password: formData.password,
-      completedSurvey: false // Para saber si completó la encuesta
+      completedSurvey: false, // Para saber si completó la encuesta
     };
 
     // Guardar en localStorage
     existingUsers.push(newUser);
-    localStorage.setItem('users', JSON.stringify(existingUsers));
+    localStorage.setItem("users", JSON.stringify(existingUsers));
 
     // Registrar exitosamente
     onRegister(newUser);
@@ -68,7 +73,7 @@ function Register({ onRegister, onBackToLogin }) {
       <div className="register-card">
         <h1>Crear Cuenta</h1>
         <p className="subtitle">Únete a la plataforma de aprendizaje</p>
-        
+
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label>Nombre Completo</label>

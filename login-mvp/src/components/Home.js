@@ -14,15 +14,27 @@ function Home({ user, onLogout, onStartLearning }) {
           <div className="profile-section">
             <h3>Tu Perfil de Aprendizaje</h3>
             <div className="profile-info">
-              <p><strong>Grado:</strong> {user.surveyData.grado}</p>
-              <p><strong>Materias Favoritas:</strong> {user.surveyData.materiasFavoritas.join(', ')}</p>
-              <p><strong>Estilo de Aprendizaje:</strong> {
-                user.surveyData.estiloAprendizaje === 'visual' ? '📺 Visual' :
-                user.surveyData.estiloAprendizaje === 'lectura' ? '📚 Lectura' :
-                user.surveyData.estiloAprendizaje === 'practica' ? '✏️ Práctica' :
-                '🎮 Juegos'
-              }</p>
-              <p><strong>Pasatiempos:</strong> {user.surveyData.pasatiempos.join(', ')}</p>
+              <p>
+                <strong>Grado:</strong> {user.surveyData.grado}
+              </p>
+              <p>
+                <strong>Materias Favoritas:</strong>{" "}
+                {user.surveyData.materiasFavoritas.join(", ")}
+              </p>
+              <p>
+                <strong>Estilo de Aprendizaje:</strong>{" "}
+                {user.surveyData.estiloAprendizaje === "visual"
+                  ? "📺 Visual"
+                  : user.surveyData.estiloAprendizaje === "lectura"
+                  ? "📚 Lectura"
+                  : user.surveyData.estiloAprendizaje === "practica"
+                  ? "✏️ Práctica"
+                  : "🎮 Juegos"}
+              </p>
+              <p>
+                <strong>Pasatiempos:</strong>{" "}
+                {user.surveyData.pasatiempos.join(", ")}
+              </p>
             </div>
           </div>
         )}

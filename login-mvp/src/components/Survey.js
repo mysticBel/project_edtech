@@ -1,25 +1,39 @@
-import React, { useState } from 'react';
-import './Survey.css';
+import React, { useState } from "react";
+import "./Survey.css";
 
 function Survey({ user, onSurveyComplete }) {
   const [step, setStep] = useState(1);
   const [surveyData, setSurveyData] = useState({
-    grado: '',
+    grado: "",
     materiasFavoritas: [],
     materiasNecesitanAyuda: [],
-    estiloAprendizaje: '',
-    pasatiempos: []
+    estiloAprendizaje: "",
+    pasatiempos: [],
   });
 
-  const grados = ['3° Primaria', '4° Primaria', '5° Primaria', '6° Primaria'];
-  const materias = ['Matemáticas', 'Lengua', 'Ciencias', 'Inglés', 'Historia', 'Geografía'];
-  const estilos = [
-    { value: 'visual', label: 'Viendo videos e imágenes', icon: '📺' },
-    { value: 'lectura', label: 'Leyendo', icon: '📚' },
-    { value: 'practica', label: 'Haciendo ejercicios', icon: '✏️' },
-    { value: 'juegos', label: 'Jugando', icon: '🎮' }
+  const grados = ["3° Primaria", "4° Primaria", "5° Primaria", "6° Primaria"];
+  const materias = [
+    "Matemáticas",
+    "Lengua",
+    "Ciencias",
+    "Inglés",
+    "Historia",
+    "Geografía",
   ];
-  const pasatiempos = ['Deportes', 'Arte', 'Música', 'Lectura', 'Videojuegos', 'Ciencia'];
+  const estilos = [
+    { value: "visual", label: "Viendo videos e imágenes", icon: "📺" },
+    { value: "lectura", label: "Leyendo", icon: "📚" },
+    { value: "practica", label: "Haciendo ejercicios", icon: "✏️" },
+    { value: "juegos", label: "Jugando", icon: "🎮" },
+  ];
+  const pasatiempos = [
+    "Deportes",
+    "Arte",
+    "Música",
+    "Lectura",
+    "Videojuegos",
+    "Ciencia",
+  ];
 
   const handleGradoSelect = (grado) => {
     setSurveyData({ ...surveyData, grado });
@@ -27,10 +41,11 @@ function Survey({ user, onSurveyComplete }) {
   };
 
   const toggleMateria = (materia, tipo) => {
-    const key = tipo === 'favorita' ? 'materiasFavoritas' : 'materiasNecesitanAyuda';
+    const key =
+      tipo === "favorita" ? "materiasFavoritas" : "materiasNecesitanAyuda";
     const current = surveyData[key];
     const updated = current.includes(materia)
-      ? current.filter(m => m !== materia)
+      ? current.filter((m) => m !== materia)
       : [...current, materia];
     setSurveyData({ ...surveyData, [key]: updated });
   };
@@ -43,27 +58,29 @@ function Survey({ user, onSurveyComplete }) {
   const togglePasatiempo = (pasatiempo) => {
     const current = surveyData.pasatiempos;
     const updated = current.includes(pasatiempo)
-      ? current.filter(p => p !== pasatiempo)
+      ? current.filter((p) => p !== pasatiempo)
       : [...current, pasatiempo];
     setSurveyData({ ...surveyData, pasatiempos: updated });
   };
 
   const handleComplete = () => {
     // Guardar en localStorage
-    const users = JSON.parse(localStorage.getItem('users') || '[]');
-    const updatedUsers = users.map(u => 
-      u.id === user.id 
-        ? { ...u, completedSurvey: true, surveyData }
-        : u
+    const users = JSON.parse(localStorage.getItem("users") || "[]");
+    const updatedUsers = users.map((u) =>
+      u.id === user.id ? { ...u, completedSurvey: true, surveyData } : u
     );
-    localStorage.setItem('users', JSON.stringify(updatedUsers));
+    localStorage.setItem("users", JSON.stringify(updatedUsers));
 
     // Notificar que se completó
     onSurveyComplete({ ...user, completedSurvey: true, surveyData });
   };
 
   const handleSkip = () => {
-    if (window.confirm('¿Seguro que quieres saltarte la encuesta? Te ayudará a tener mejores recomendaciones.')) {
+    if (
+      window.confirm(
+        "¿Seguro que quieres saltarte la encuesta? Te ayudará a tener mejores recomendaciones."
+      )
+    ) {
       onSurveyComplete(user);
     }
   };
@@ -75,7 +92,10 @@ function Survey({ user, onSurveyComplete }) {
           <h1>¡Hola {user.nombre}! 👋</h1>
           <p>Vamos a conocernos mejor para personalizar tu experiencia</p>
           <div className="progress-bar">
-            <div className="progress-fill" style={{ width: `${(step / 4) * 100}%` }}></div>
+            <div
+              className="progress-fill"
+              style={{ width: `${(step / 4) * 100}%` }}
+            ></div>
           </div>
           <p className="step-indicator">Paso {step} de 4</p>
         </div>
@@ -84,7 +104,7 @@ function Survey({ user, onSurveyComplete }) {
           <div className="survey-step">
             <h2>¿En qué grado estás?</h2>
             <div className="options-grid">
-              {grados.map(grado => (
+              {grados.map((grado) => (
                 <button
                   key={grado}
                   className="option-button"
@@ -102,18 +122,22 @@ function Survey({ user, onSurveyComplete }) {
             <h2>Selecciona tus materias favoritas</h2>
             <p className="hint">Puedes elegir varias</p>
             <div className="options-grid">
-              {materias.map(materia => (
+              {materias.map((materia) => (
                 <button
                   key={materia}
-                  className={`option-button ${surveyData.materiasFavoritas.includes(materia) ? 'selected' : ''}`}
-                  onClick={() => toggleMateria(materia, 'favorita')}
+                  className={`option-button ${
+                    surveyData.materiasFavoritas.includes(materia)
+                      ? "selected"
+                      : ""
+                  }`}
+                  onClick={() => toggleMateria(materia, "favorita")}
                 >
                   {materia}
                 </button>
               ))}
             </div>
-            <button 
-              className="next-button" 
+            <button
+              className="next-button"
               onClick={() => setStep(3)}
               disabled={surveyData.materiasFavoritas.length === 0}
             >
@@ -126,7 +150,7 @@ function Survey({ user, onSurveyComplete }) {
           <div className="survey-step">
             <h2>¿Cómo te gusta aprender?</h2>
             <div className="options-grid">
-              {estilos.map(estilo => (
+              {estilos.map((estilo) => (
                 <button
                   key={estilo.value}
                   className="option-button large"
@@ -145,18 +169,22 @@ function Survey({ user, onSurveyComplete }) {
             <h2>¿Qué te gusta hacer en tu tiempo libre?</h2>
             <p className="hint">Puedes elegir varios</p>
             <div className="options-grid">
-              {pasatiempos.map(pasatiempo => (
+              {pasatiempos.map((pasatiempo) => (
                 <button
                   key={pasatiempo}
-                  className={`option-button ${surveyData.pasatiempos.includes(pasatiempo) ? 'selected' : ''}`}
+                  className={`option-button ${
+                    surveyData.pasatiempos.includes(pasatiempo)
+                      ? "selected"
+                      : ""
+                  }`}
                   onClick={() => togglePasatiempo(pasatiempo)}
                 >
                   {pasatiempo}
                 </button>
               ))}
             </div>
-            <button 
-              className="complete-button" 
+            <button
+              className="complete-button"
               onClick={handleComplete}
               disabled={surveyData.pasatiempos.length === 0}
             >

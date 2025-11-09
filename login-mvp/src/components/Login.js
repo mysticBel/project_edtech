@@ -11,7 +11,7 @@ function Login({ onLogin, onGoToRegister }) {
     e.preventDefault();
 
     // Buscar primero en localStorage (usuarios registrados)
-    const localUsers = JSON.parse(localStorage.getItem('users') || '[]');
+    const localUsers = JSON.parse(localStorage.getItem("users") || "[]");
     let user = localUsers.find(
       (u) => u.email === email && u.password === password
     );

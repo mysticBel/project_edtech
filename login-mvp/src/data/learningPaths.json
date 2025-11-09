@@ -206,7 +206,12 @@
               "type": "ejercicio",
               "difficulty": "facil",
               "question": "¿Qué necesitan las plantas para vivir?",
-              "options": ["Solo agua", "Solo luz", "Agua, luz y aire", "Solo tierra"],
+              "options": [
+                "Solo agua",
+                "Solo luz",
+                "Agua, luz y aire",
+                "Solo tierra"
+              ],
               "correctAnswer": "Agua, luz y aire"
             }
           ]

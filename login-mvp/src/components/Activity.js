@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import './Activity.css';
+import React, { useState } from "react";
+import "./Activity.css";
 
 function Activity({ user, subject, topic, onComplete, onBack }) {
   const [currentActivityIndex, setCurrentActivityIndex] = useState(0);
@@ -9,9 +9,9 @@ function Activity({ user, subject, topic, onComplete, onBack }) {
   const [stats, setStats] = useState({
     correct: 0,
     incorrect: 0,
-    streak: 0 // racha de respuestas correctas
+    streak: 0, // racha de respuestas correctas
   });
-  const [adaptiveMessage, setAdaptiveMessage] = useState('');
+  const [adaptiveMessage, setAdaptiveMessage] = useState("");
 
   const activities = topic.activities;
   const currentActivity = activities[currentActivityIndex];
@@ -32,15 +32,19 @@ function Activity({ user, subject, topic, onComplete, onBack }) {
     const newStats = {
       correct: correct ? stats.correct + 1 : stats.correct,
       incorrect: correct ? stats.incorrect : stats.incorrect + 1,
-      streak: correct ? stats.streak + 1 : 0
+      streak: correct ? stats.streak + 1 : 0,
     };
     setStats(newStats);
 
     // Lógica adaptativa simulada
     if (correct && newStats.streak === 3) {
-      setAdaptiveMessage('¡Vas muy bien! 🎉 Vamos a intentar algo más desafiante');
+      setAdaptiveMessage(
+        "¡Vas muy bien! 🎉 Vamos a intentar algo más desafiante"
+      );
     } else if (!correct && newStats.incorrect >= 2 && newStats.streak === 0) {
-      setAdaptiveMessage('Vamos a practicar un poco más con ejercicios más sencillos 💪');
+      setAdaptiveMessage(
+        "Vamos a practicar un poco más con ejercicios más sencillos 💪"
+      );
     }
   };
 
@@ -51,7 +55,7 @@ function Activity({ user, subject, topic, onComplete, onBack }) {
       setSelectedAnswer(null);
       setShowFeedback(false);
       setIsCorrect(false);
-      setAdaptiveMessage('');
+      setAdaptiveMessage("");
     } else {
       // Completó todas las actividades
       saveProgress();
@@ -63,23 +67,29 @@ function Activity({ user, subject, topic, onComplete, onBack }) {
     // Calcular puntuación
     const totalActivities = activities.length;
     const score = Math.round((stats.correct / totalActivities) * 100);
-    
+
     // Determinar si completó el tema (70% o más)
     const completed = score >= 70;
 
     // Cargar progreso existente
     const progressKey = `progress_${user.id}`;
-    const currentProgress = JSON.parse(localStorage.getItem(progressKey) || '{}');
+    const currentProgress = JSON.parse(
+      localStorage.getItem(progressKey) || "{}"
+    );
 
     // Actualizar progreso del tema
     const topicKey = `${subject.id}_${topic.id}`;
-    const existingTopicProgress = currentProgress[topicKey] || { completed: false, score: 0, attempts: 0 };
+    const existingTopicProgress = currentProgress[topicKey] || {
+      completed: false,
+      score: 0,
+      attempts: 0,
+    };
 
     currentProgress[topicKey] = {
       completed: completed || existingTopicProgress.completed,
       score: Math.max(score, existingTopicProgress.score),
       attempts: existingTopicProgress.attempts + 1,
-      lastAttempt: new Date().toISOString()
+      lastAttempt: new Date().toISOString(),
     };
 
     // Guardar en localStorage
@@ -90,10 +100,16 @@ function Activity({ user, subject, topic, onComplete, onBack }) {
     <div className="activity-container">
       <div className="activity-card">
         <div className="activity-header">
-          <button onClick={onBack} className="back-button">← Volver al Mapa</button>
-          <h2>{subject.icon} {topic.name}</h2>
+          <button onClick={onBack} className="back-button">
+            ← Volver al Mapa
+          </button>
+          <h2>
+            {subject.icon} {topic.name}
+          </h2>
           <div className="activity-progress">
-            <p>Actividad {currentActivityIndex + 1} de {activities.length}</p>
+            <p>
+              Actividad {currentActivityIndex + 1} de {activities.length}
+            </p>
             <div className="stats">
               <span className="stat-correct">✅ {stats.correct}</span>
               <span className="stat-incorrect">❌ {stats.incorrect}</span>
@@ -102,9 +118,7 @@ function Activity({ user, subject, topic, onComplete, onBack }) {
         </div>
 
         {adaptiveMessage && (
-          <div className="adaptive-message">
-            {adaptiveMessage}
-          </div>
+          <div className="adaptive-message">{adaptiveMessage}</div>
         )}
 
         <div className="activity-content">
@@ -118,11 +132,15 @@ function Activity({ user, subject, topic, onComplete, onBack }) {
               <button
                 key={index}
                 className={`option-btn ${
-                  selectedAnswer === option ? 'selected' : ''
+                  selectedAnswer === option ? "selected" : ""
                 } ${
-                  showFeedback && option === currentActivity.correctAnswer ? 'correct' : ''
+                  showFeedback && option === currentActivity.correctAnswer
+                    ? "correct"
+                    : ""
                 } ${
-                  showFeedback && selectedAnswer === option && !isCorrect ? 'incorrect' : ''
+                  showFeedback && selectedAnswer === option && !isCorrect
+                    ? "incorrect"
+                    : ""
                 }`}
                 onClick={() => handleAnswerSelect(option)}
                 disabled={showFeedback}
@@ -133,7 +151,11 @@ function Activity({ user, subject, topic, onComplete, onBack }) {
           </div>
 
           {showFeedback && (
-            <div className={`feedback ${isCorrect ? 'correct-feedback' : 'incorrect-feedback'}`}>
+            <div
+              className={`feedback ${
+                isCorrect ? "correct-feedback" : "incorrect-feedback"
+              }`}
+            >
               {isCorrect ? (
                 <>
                   <div className="feedback-icon">🎉</div>
@@ -144,7 +166,10 @@ function Activity({ user, subject, topic, onComplete, onBack }) {
                 <>
                   <div className="feedback-icon">💪</div>
                   <h3>Casi...</h3>
-                  <p>La respuesta correcta es: <strong>{currentActivity.correctAnswer}</strong></p>
+                  <p>
+                    La respuesta correcta es:{" "}
+                    <strong>{currentActivity.correctAnswer}</strong>
+                  </p>
                   <p>¡No te preocupes! Sigue practicando</p>
                 </>
               )}
@@ -154,8 +179,8 @@ function Activity({ user, subject, topic, onComplete, onBack }) {
 
         <div className="activity-actions">
           {!showFeedback ? (
-            <button 
-              onClick={handleSubmit} 
+            <button
+              onClick={handleSubmit}
               className="submit-btn"
               disabled={!selectedAnswer}
             >
@@ -163,7 +188,9 @@ function Activity({ user, subject, topic, onComplete, onBack }) {
             </button>
           ) : (
             <button onClick={handleNext} className="next-btn">
-              {currentActivityIndex < activities.length - 1 ? 'Siguiente →' : 'Terminar'}
+              {currentActivityIndex < activities.length - 1
+                ? "Siguiente →"
+                : "Terminar"}
             </button>
           )}
         </div>
