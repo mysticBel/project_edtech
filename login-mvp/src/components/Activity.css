@@ -1,0 +1,247 @@
+.activity-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 20px;
+}
+
+.activity-card {
+  background: white;
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 700px;
+  animation: fadeIn 0.5s;
+}
+
+.activity-header {
+  position: relative;
+  text-align: center;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.activity-header h2 {
+  margin: 20px 0 10px 0;
+  color: #333;
+  font-size: 24px;
+}
+
+.activity-progress {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin-top: 10px;
+}
+
+.activity-progress p {
+  margin: 0;
+  color: #666;
+  font-size: 14px;
+}
+
+.stats {
+  display: flex;
+  gap: 15px;
+}
+
+.stat-correct,
+.stat-incorrect {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.adaptive-message {
+  background: linear-gradient(135deg, #ffeaa7, #fdcb6e);
+  padding: 15px 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  text-align: center;
+  font-weight: 600;
+  color: #2d3436;
+  animation: slideDown 0.5s;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.activity-content {
+  margin-bottom: 30px;
+}
+
+.question-section {
+  margin-bottom: 30px;
+}
+
+.question-section h3 {
+  margin: 0 0 15px 0;
+  color: #667eea;
+  font-size: 18px;
+}
+
+.question-text {
+  font-size: 20px;
+  color: #333;
+  font-weight: 500;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.options-section {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 15px;
+}
+
+.option-btn {
+  padding: 18px 20px;
+  background: #f8f9fa;
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-align: left;
+  color: #333;
+  font-weight: 500;
+}
+
+.option-btn:hover:not(:disabled) {
+  background: #e9ecef;
+  border-color: #667eea;
+  transform: translateX(5px);
+}
+
+.option-btn.selected {
+  background: #667eea;
+  color: white;
+  border-color: #667eea;
+}
+
+.option-btn.correct {
+  background: #28a745;
+  color: white;
+  border-color: #28a745;
+}
+
+.option-btn.incorrect {
+  background: #dc3545;
+  color: white;
+  border-color: #dc3545;
+}
+
+.option-btn:disabled {
+  cursor: not-allowed;
+}
+
+.feedback {
+  margin-top: 30px;
+  padding: 25px;
+  border-radius: 12px;
+  text-align: center;
+  animation: slideUp 0.5s;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.correct-feedback {
+  background: linear-gradient(135deg, #d4edda, #c3e6cb);
+  border: 2px solid #28a745;
+}
+
+.incorrect-feedback {
+  background: linear-gradient(135deg, #f8d7da, #f5c6cb);
+  border: 2px solid #dc3545;
+}
+
+.feedback-icon {
+  font-size: 50px;
+  margin-bottom: 10px;
+}
+
+.feedback h3 {
+  margin: 10px 0;
+  font-size: 22px;
+  color: #333;
+}
+
+.feedback p {
+  margin: 8px 0;
+  color: #555;
+  font-size: 16px;
+}
+
+.activity-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.submit-btn,
+.next-btn {
+  padding: 15px 40px;
+  font-size: 18px;
+  font-weight: 600;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.submit-btn {
+  background: #667eea;
+  color: white;
+}
+
+.submit-btn:hover:not(:disabled) {
+  background: #5568d3;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+.submit-btn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.next-btn {
+  background: #28a745;
+  color: white;
+}
+
+.next-btn:hover {
+  background: #218838;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 768px) {
+  .activity-card {
+    padding: 20px;
+  }
+
+  .question-text {
+    font-size: 18px;
+  }
+
+  .option-btn {
+    padding: 15px;
+    font-size: 14px;
+  }
+}

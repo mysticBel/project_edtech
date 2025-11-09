@@ -1,0 +1,217 @@
+{
+  "subjects": [
+    {
+      "id": "matematicas",
+      "name": "Matemáticas",
+      "icon": "🔢",
+      "topics": [
+        {
+          "id": "sumas-basicas",
+          "name": "Sumas Básicas",
+          "order": 1,
+          "difficulty": "facil",
+          "activities": [
+            {
+              "id": "sum-1",
+              "type": "ejercicio",
+              "difficulty": "facil",
+              "question": "¿Cuánto es 5 + 3?",
+              "options": ["6", "7", "8", "9"],
+              "correctAnswer": "8"
+            },
+            {
+              "id": "sum-2",
+              "type": "ejercicio",
+              "difficulty": "facil",
+              "question": "¿Cuánto es 12 + 7?",
+              "options": ["17", "18", "19", "20"],
+              "correctAnswer": "19"
+            },
+            {
+              "id": "sum-3",
+              "type": "ejercicio",
+              "difficulty": "medio",
+              "question": "¿Cuánto es 25 + 38?",
+              "options": ["61", "62", "63", "64"],
+              "correctAnswer": "63"
+            }
+          ]
+        },
+        {
+          "id": "restas-basicas",
+          "name": "Restas Básicas",
+          "order": 2,
+          "difficulty": "facil",
+          "activities": [
+            {
+              "id": "res-1",
+              "type": "ejercicio",
+              "difficulty": "facil",
+              "question": "¿Cuánto es 10 - 4?",
+              "options": ["5", "6", "7", "8"],
+              "correctAnswer": "6"
+            },
+            {
+              "id": "res-2",
+              "type": "ejercicio",
+              "difficulty": "medio",
+              "question": "¿Cuánto es 50 - 23?",
+              "options": ["25", "26", "27", "28"],
+              "correctAnswer": "27"
+            }
+          ]
+        },
+        {
+          "id": "multiplicaciones",
+          "name": "Multiplicaciones",
+          "order": 3,
+          "difficulty": "medio",
+          "activities": [
+            {
+              "id": "mul-1",
+              "type": "ejercicio",
+              "difficulty": "facil",
+              "question": "¿Cuánto es 3 × 4?",
+              "options": ["10", "11", "12", "13"],
+              "correctAnswer": "12"
+            },
+            {
+              "id": "mul-2",
+              "type": "ejercicio",
+              "difficulty": "medio",
+              "question": "¿Cuánto es 7 × 8?",
+              "options": ["54", "55", "56", "57"],
+              "correctAnswer": "56"
+            }
+          ]
+        },
+        {
+          "id": "divisiones",
+          "name": "Divisiones",
+          "order": 4,
+          "difficulty": "medio",
+          "activities": [
+            {
+              "id": "div-1",
+              "type": "ejercicio",
+              "difficulty": "facil",
+              "question": "¿Cuánto es 12 ÷ 3?",
+              "options": ["3", "4", "5", "6"],
+              "correctAnswer": "4"
+            },
+            {
+              "id": "div-2",
+              "type": "ejercicio",
+              "difficulty": "medio",
+              "question": "¿Cuánto es 48 ÷ 6?",
+              "options": ["6", "7", "8", "9"],
+              "correctAnswer": "8"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lengua",
+      "name": "Lengua",
+      "icon": "📚",
+      "topics": [
+        {
+          "id": "vocales",
+          "name": "Vocales y Consonantes",
+          "order": 1,
+          "difficulty": "facil",
+          "activities": [
+            {
+              "id": "voc-1",
+              "type": "ejercicio",
+              "difficulty": "facil",
+              "question": "¿Cuántas vocales tiene la palabra 'escuela'?",
+              "options": ["2", "3", "4", "5"],
+              "correctAnswer": "4"
+            },
+            {
+              "id": "voc-2",
+              "type": "ejercicio",
+              "difficulty": "facil",
+              "question": "¿Qué letra es una vocal?",
+              "options": ["B", "E", "F", "G"],
+              "correctAnswer": "E"
+            }
+          ]
+        },
+        {
+          "id": "sinonimos",
+          "name": "Sinónimos y Antónimos",
+          "order": 2,
+          "difficulty": "medio",
+          "activities": [
+            {
+              "id": "sin-1",
+              "type": "ejercicio",
+              "difficulty": "medio",
+              "question": "¿Cuál es un sinónimo de 'feliz'?",
+              "options": ["Triste", "Alegre", "Enojado", "Cansado"],
+              "correctAnswer": "Alegre"
+            },
+            {
+              "id": "sin-2",
+              "type": "ejercicio",
+              "difficulty": "medio",
+              "question": "¿Cuál es el antónimo de 'grande'?",
+              "options": ["Enorme", "Pequeño", "Alto", "Largo"],
+              "correctAnswer": "Pequeño"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ciencias",
+      "name": "Ciencias",
+      "icon": "🔬",
+      "topics": [
+        {
+          "id": "animales",
+          "name": "Animales",
+          "order": 1,
+          "difficulty": "facil",
+          "activities": [
+            {
+              "id": "ani-1",
+              "type": "ejercicio",
+              "difficulty": "facil",
+              "question": "¿Qué animal es un mamífero?",
+              "options": ["Pez", "Ave", "Perro", "Serpiente"],
+              "correctAnswer": "Perro"
+            },
+            {
+              "id": "ani-2",
+              "type": "ejercicio",
+              "difficulty": "facil",
+              "question": "¿Los pingüinos son...?",
+              "options": ["Mamíferos", "Aves", "Reptiles", "Peces"],
+              "correctAnswer": "Aves"
+            }
+          ]
+        },
+        {
+          "id": "plantas",
+          "name": "Plantas",
+          "order": 2,
+          "difficulty": "facil",
+          "activities": [
+            {
+              "id": "pla-1",
+              "type": "ejercicio",
+              "difficulty": "facil",
+              "question": "¿Qué necesitan las plantas para vivir?",
+              "options": ["Solo agua", "Solo luz", "Agua, luz y aire", "Solo tierra"],
+              "correctAnswer": "Agua, luz y aire"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

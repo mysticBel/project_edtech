@@ -1,0 +1,22 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "email": "admin@test.com",
+      "password": "admin123",
+      "nombre": "Administrador"
+    },
+    {
+      "id": 2,
+      "email": "profesor@test.com",
+      "password": "profe123",
+      "nombre": "Profesor Demo"
+    },
+    {
+      "id": 3,
+      "email": "alumno@test.com",
+      "password": "alumno123",
+      "nombre": "Alumno Demo"
+    }
+  ]
+}
