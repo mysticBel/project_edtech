@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import "./App.css";
-import Login from "./components/Login";
-import Register from "./components/Register";
-import Survey from "./components/Survey";
-import Home from "./components/Home";
-import LearningMap from "./components/LearningMap";
-import Activity from "./components/Activity";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Survey from "./pages/Survey";
+import Home from "./pages/Home";
+import LearningMap from "./pages/LearningMap";
+import Activity from "./pages/Activity";
+import AuthService from "./services/authService";
 
 function App() {
   const [view, setView] = useState("login"); // 'login', 'register', 'survey', 'home', 'learning', 'activity'
@@ -13,23 +14,40 @@ function App() {
   const [currentSubject, setCurrentSubject] = useState(null);
   const [currentTopic, setCurrentTopic] = useState(null);
 
-  const handleLogin = (userData) => {
-    setUser(userData);
-    // Si el usuario no ha completado la encuesta, mostrarla
-    if (!userData.completedSurvey) {
-      setView("survey");
-    } else {
-      setView("home");
+  const handleLogin = (email, password) => {
+    try {
+      const userData = AuthService.login(email, password);
+      if (userData) {
+        setUser(userData);
+        // Si el usuario no ha completado la encuesta, mostrarla
+        if (!userData.completedSurvey) {
+          setView("survey");
+        } else {
+          setView("home");
+        }
+        return { success: true };
+      } else {
+        return { success: false, error: "Email o contraseña incorrectos" };
+      }
+    } catch (error) {
+      return { success: false, error: error.message };
     }
   };
 
   const handleRegister = (userData) => {
-    setUser(userData);
-    // Después del registro, siempre mostrar la encuesta
-    setView("survey");
+    try {
+      const newUser = AuthService.register(userData);
+      setUser(newUser);
+      // Después del registro, siempre mostrar la encuesta
+      setView("survey");
+      return { success: true };
+    } catch (error) {
+      return { success: false, error: error.message };
+    }
   };
 
-  const handleSurveyComplete = (updatedUser) => {
+  const handleSurveyComplete = (surveyData) => {
+    const updatedUser = AuthService.completeSurvey(user.id, surveyData);
     setUser(updatedUser);
     setView("home");
   };

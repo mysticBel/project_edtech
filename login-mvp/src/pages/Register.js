@@ -42,30 +42,16 @@ function Register({ onRegister, onBackToLogin }) {
       return;
     }
 
-    // Obtener usuarios existentes de localStorage
-    const existingUsers = JSON.parse(localStorage.getItem("users") || "[]");
-
-    // Verificar si el email ya existe
-    if (existingUsers.find((u) => u.email === formData.email)) {
-      setError("Este email ya está registrado");
-      return;
-    }
-
-    // Crear nuevo usuario
-    const newUser = {
-      id: Date.now(),
+    // Llamar al manejador de registro desde App.js
+    const result = onRegister({
       nombre: formData.nombre,
       email: formData.email,
       password: formData.password,
-      completedSurvey: false, // Para saber si completó la encuesta
-    };
+    });
 
-    // Guardar en localStorage
-    existingUsers.push(newUser);
-    localStorage.setItem("users", JSON.stringify(existingUsers));
-
-    // Registrar exitosamente
-    onRegister(newUser);
+    if (!result.success) {
+      setError(result.error);
+    }
   };
 
   return (

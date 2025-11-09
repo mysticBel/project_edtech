@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "./Login.css";
-import usersData from "../data/users.json";
 
 function Login({ onLogin, onGoToRegister }) {
   const [email, setEmail] = useState("");
@@ -9,26 +8,12 @@ function Login({ onLogin, onGoToRegister }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setError("");
 
-    // Buscar primero en localStorage (usuarios registrados)
-    const localUsers = JSON.parse(localStorage.getItem("users") || "[]");
-    let user = localUsers.find(
-      (u) => u.email === email && u.password === password
-    );
+    const result = onLogin(email, password);
 
-    // Si no está en localStorage, buscar en users.json
-    if (!user) {
-      user = usersData.users.find(
-        (u) => u.email === email && u.password === password
-      );
-    }
-
-    if (user) {
-      // Login exitoso
-      onLogin(user);
-    } else {
-      // Login fallido
-      setError("Email o contraseña incorrectos");
+    if (!result.success) {
+      setError(result.error);
     }
   };
 

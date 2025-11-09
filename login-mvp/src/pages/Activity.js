@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./Activity.css";
+import ProgressService from "../services/progressService";
 
 function Activity({ user, subject, topic, onComplete, onBack }) {
   const [currentActivityIndex, setCurrentActivityIndex] = useState(0);
@@ -71,29 +72,14 @@ function Activity({ user, subject, topic, onComplete, onBack }) {
     // Determinar si completó el tema (70% o más)
     const completed = score >= 70;
 
-    // Cargar progreso existente
-    const progressKey = `progress_${user.id}`;
-    const currentProgress = JSON.parse(
-      localStorage.getItem(progressKey) || "{}"
+    // Guardar usando ProgressService
+    ProgressService.saveTopicProgress(
+      user.id,
+      subject.id,
+      topic.id,
+      completed,
+      score
     );
-
-    // Actualizar progreso del tema
-    const topicKey = `${subject.id}_${topic.id}`;
-    const existingTopicProgress = currentProgress[topicKey] || {
-      completed: false,
-      score: 0,
-      attempts: 0,
-    };
-
-    currentProgress[topicKey] = {
-      completed: completed || existingTopicProgress.completed,
-      score: Math.max(score, existingTopicProgress.score),
-      attempts: existingTopicProgress.attempts + 1,
-      lastAttempt: new Date().toISOString(),
-    };
-
-    // Guardar en localStorage
-    localStorage.setItem(progressKey, JSON.stringify(currentProgress));
   };
 
   return (

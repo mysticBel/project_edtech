@@ -1,44 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./LearningMap.css";
 import learningPathsData from "../data/learningPaths.json";
+import ProgressService from "../services/progressService";
 
 function LearningMap({ user, onStartActivity, onBack }) {
   const [selectedSubject, setSelectedSubject] = useState(null);
-  const [progress, setProgress] = useState({});
-
-  useEffect(() => {
-    // Cargar progreso del usuario desde localStorage
-    const userProgress = JSON.parse(
-      localStorage.getItem(`progress_${user.id}`) || "{}"
-    );
-    setProgress(userProgress);
-  }, [user.id]);
 
   const getTopicStatus = (subjectId, topicId) => {
-    const key = `${subjectId}_${topicId}`;
-    return (
-      progress[key] || {
-        completed: false,
-        locked: false,
-        score: 0,
-        attempts: 0,
-      }
-    );
+    return ProgressService.getTopicStatus(user.id, subjectId, topicId);
   };
 
   const isTopicUnlocked = (subjectId, topicOrder) => {
-    if (topicOrder === 1) return true; // Primer tema siempre desbloqueado
-
-    // Buscar el tema anterior
-    const subject = learningPathsData.subjects.find((s) => s.id === subjectId);
-    const previousTopic = subject.topics.find(
-      (t) => t.order === topicOrder - 1
-    );
-
-    if (!previousTopic) return true;
-
-    const prevStatus = getTopicStatus(subjectId, previousTopic.id);
-    return prevStatus.completed;
+    return ProgressService.isTopicUnlocked(user.id, subjectId, topicOrder);
   };
 
   const handleSubjectClick = (subject) => {
@@ -66,12 +39,9 @@ function LearningMap({ user, onStartActivity, onBack }) {
 
           <div className="subjects-grid">
             {learningPathsData.subjects.map((subject) => {
-              const completedTopics = subject.topics.filter(
-                (topic) => getTopicStatus(subject.id, topic.id).completed
-              ).length;
-              const totalTopics = subject.topics.length;
-              const percentage = Math.round(
-                (completedTopics / totalTopics) * 100
+              const stats = ProgressService.getSubjectStats(
+                user.id,
+                subject.id
               );
 
               return (
@@ -86,11 +56,11 @@ function LearningMap({ user, onStartActivity, onBack }) {
                     <div className="progress-bar-small">
                       <div
                         className="progress-fill-small"
-                        style={{ width: `${percentage}%` }}
+                        style={{ width: `${stats.percentage}%` }}
                       ></div>
                     </div>
                     <p>
-                      {completedTopics} de {totalTopics} temas
+                      {stats.completedTopics} de {stats.totalTopics} temas
                     </p>
                   </div>
                 </div>

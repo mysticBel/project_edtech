@@ -64,15 +64,8 @@ function Survey({ user, onSurveyComplete }) {
   };
 
   const handleComplete = () => {
-    // Guardar en localStorage
-    const users = JSON.parse(localStorage.getItem("users") || "[]");
-    const updatedUsers = users.map((u) =>
-      u.id === user.id ? { ...u, completedSurvey: true, surveyData } : u
-    );
-    localStorage.setItem("users", JSON.stringify(updatedUsers));
-
-    // Notificar que se completó
-    onSurveyComplete({ ...user, completedSurvey: true, surveyData });
+    // Notificar que se completó con los datos de la encuesta
+    onSurveyComplete(surveyData);
   };
 
   const handleSkip = () => {
